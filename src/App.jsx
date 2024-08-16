@@ -1,15 +1,18 @@
 import React from "react";
 import "../src/App.css";
-import UseStateHook from "./components/UseStateHook";
-import UseEffectHook from "./components/UseEffectHook";
-import BestDataFetchTechnique from "./components/BestDataFetchTechnique";
+import HooksIntro from "./pages/HooksIntro";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Products from "./reactQueryAdvance/Products";
 
 const App = () => {
   return (
     <>
-      <UseStateHook />
-      <UseEffectHook />
-      <BestDataFetchTechnique />
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HooksIntro />} />
+        <Route path="/reactquery" element={<Products />} />
+      </Routes>
+      </BrowserRouter>
     </>
   );
 };
