@@ -1,38 +1,43 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { FaImage } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FaAnglesRight } from "react-icons/fa6";
 
-const Products = () => {
+const ProductsDebug = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page , setPage] = useState(0);
+
   const prodsPerPage = 8;
-  const numberOfPages = Math.ceil(total / prodsPerPage);
-  console.log(total);
+  const numberOfPages = Math.ceil(total / prodsPerPage) ;
+  console.log(total, numberOfPages,page);
+
+  const loadProducts = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products?skip=${page*prodsPerPage}&limit=${prodsPerPage}`
+      );
+      const data = await response.json();
+      setProducts(data.products);
+      setTotal(data.total);
+    } catch (error) {
+      console.error("Failed to load products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, [page]);
 
   const handlePageClick = (e) => {
     setPage(e.selected);
-    refetch();
   };
-
-  const loadProducts = async () => {
-    const response = await fetch(
-      `https://dummyjson.com/products?skip=${
-        page * prodsPerPage
-      }&limit=${prodsPerPage}`
-    );
-    const data = await response.json();
-    setTotal(data.total);
-    return data.products;
-  };
-
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["products",page],
-    queryFn: loadProducts,
-  });
-  console.log(data);
 
   return (
     <>
@@ -43,7 +48,6 @@ const Products = () => {
               Products List :
             </h2>
             <div className="p-5 mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {/* skeleton */}
               {Array.from({ length: prodsPerPage }, (_, i) => (
                 <div
                   className="border shadow rounded-md p-4 max-w-sm w-full mx-auto"
@@ -76,12 +80,12 @@ const Products = () => {
               Products List :
             </h2>
             <div className="p-5 mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {data.map((product) => (
+              {products.map((product) => (
                 <div
                   key={product.id}
                   className="group shadow relative bg-white border rounded-md"
                 >
-                  <div className="aspect-h-1  aspect-w-1 w-full overflow-hidden rounded-md bg-white lg:aspect-none group-hover:opacity-75 lg:h-80 p-3">
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-white lg:aspect-none group-hover:opacity-75 lg:h-80 p-3">
                     <img
                       alt="product-image"
                       src={product.thumbnail}
@@ -130,4 +134,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsDebug;
