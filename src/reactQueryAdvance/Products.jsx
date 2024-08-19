@@ -4,13 +4,17 @@ import { FaImage } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { FaAnglesLeft } from "react-icons/fa6";
 import { FaAnglesRight } from "react-icons/fa6";
+import SearchInput from "../components/SearchInput";
 
 const Products = () => {
+
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
   const prodsPerPage = 8;
   const numberOfPages = Math.ceil(total / prodsPerPage);
-  console.log(total);
+
+
+
 
   const handlePageClick = (e) => {
     setPage(e.selected);
@@ -32,10 +36,11 @@ const Products = () => {
     queryKey: ["products",page],
     queryFn: loadProducts,
   });
-  console.log(data);
+
 
   return (
     <>
+    <SearchInput />
       {isLoading ? (
         <div className="bg-white">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
