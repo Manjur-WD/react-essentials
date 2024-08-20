@@ -7,14 +7,14 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily:{
+      fontFamily: {
         mont: ["Montserrat", "sans-serif"],
         gilroy: ["gilroy"]
       }
     },
   },
   plugins: [
-    require('flowbite/plugin')
+
   ],
 }
 
