@@ -6,9 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import ProductsDebug from "./reactQueryAdvance/ProductsDebug";
 import { CountContextProvider } from "./context/CountContext";
 import { CountReducerProvider } from "./context/CountReducerContext";
-const HooksIntro = lazy(()=>import("./pages/HooksIntro"));
-const Products = lazy(()=>import("./reactQueryAdvance/Products"));
-const ProductsDebug = lazy(()=>import("./reactQueryAdvance/ProductsDebug"));
+
 
 const HooksIntro = lazy(()=>import("./pages/HooksIntro"));
 const Products = lazy(()=>import("./reactQueryAdvance/Products"));
