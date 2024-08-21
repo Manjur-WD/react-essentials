@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { CountReducerContext } from "../context/CountReducerContext";
+import { useNavigate } from "react-router-dom";
 
 const ContextReducer = () => {
+
+  const navigate = useNavigate();
 
 
     const {state , dispatch} = useContext(CountReducerContext);
@@ -42,6 +45,9 @@ const ContextReducer = () => {
           Decrease
         </button>
         <hr className="my-10" />
+      </div>
+      <div className="text-center">
+      <button type="button" onClick={()=>{navigate("/redux-rtk")}} className="bg-violet-700 text-white font-gilroy p-5">DEEP DIVE INTO REDUX AND RTK</button>
       </div>
     </>
   );
